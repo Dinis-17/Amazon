@@ -11,9 +11,37 @@ function Login() {
     const handleLogin = (e) => {
         e.preventDefault();
 
+        const userData = { email, password };
 
+        fetch('http://192.168.0.220:3000/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(userData),
+        })
+            .then(async (res) => {
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message || 'Error en la respuesta del servidor');
+                return data;
+            })
+            .then((data) => {
+                if (data.success) {
+                    localStorage.setItem('userToken', data.id);
+                } else {
+                    throw new Error(data.message || 'Error al iniciar sesión');
+                }
+            })
+            .then(async (res) => {
+                navigate('/dashboard');
+                location.reload();
 
+                const userInfo = await res.json();
+                if (!res.ok) throw new Error(userInfo.message || 'Error al obtener datos del usuario');
 
+                localStorage.setItem('userToken', userInfo.name || '');
+            })
+            .catch((err) => {
+                setError(err.message || 'Error de conexión con el servidor');
+            });
     };
 
     return (

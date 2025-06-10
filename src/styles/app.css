@@ -61,12 +61,21 @@ html, body {
     gap: 10px;
 }
 
-.login-buttons {
+.login-buttons, .logged-buttons {
     margin-left: auto;
     display: flex;
     gap: 1px;
 }
 
+#logout-btn {
+    background: #ff4343;
+    color: white;
+}
+
+#dashboard-btn {
+    background: #55bef6;
+    color: white;
+}
 
 /* Button css */
 button {

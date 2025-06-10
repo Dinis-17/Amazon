@@ -42,10 +42,11 @@ function Register() {
             })
             .then((data) => {
                 if (data.message === 'Usuario creado correctamente') {
-                    localStorage.setItem('userToken', data.id);      // Guardar token o id
-                    localStorage.setItem('userName', data.name || name);  // Guardar nombre (de respuesta o del input)
+                    localStorage.setItem('userToken', data.id);
+                    localStorage.setItem('userName', data.name || name);
 
                     navigate('/dashboard');
+                    location.reload();
                 } else if (data.message === 'Error, email ya registrado') {
                     setError(data.error || 'Ya existe un usuario con ese correo.');
                 } else {

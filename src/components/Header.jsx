@@ -3,8 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
 function Header() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const token = localStorage.getItem("userToken");
+        setIsLoggedIn(!!token);
+    }, []);
+
     const navigate = useNavigate();
 
     const handleLoginClick = () => {
@@ -13,10 +21,23 @@ function Header() {
 
     const handleRegisterClick = () => {
         navigate('/register');
-    }
+    };
 
     const handleHomeClick = () => {
         navigate('/');
+    };
+
+    const handleDashboardClick = () => {
+        navigate('/dashboard');
+    }
+
+    const handleLogoutClick = () => {
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("userName");
+
+        setIsLoggedIn(false);
+        navigate('/');
+        location.reload();
     };
 
     return (
@@ -33,10 +54,21 @@ function Header() {
                 <FontAwesomeIcon icon={faCartShopping} />
             </Button>
 
-            <div className="login-buttons">
-                <Button className="full-rounded" onClick={handleLoginClick}>Login</Button>
-                <Button className="full-rounded" onClick={handleRegisterClick}>Sign In</Button>
-            </div>
+            {/* Si NO está logueado: mostrar Login y Sign In */}
+            {!isLoggedIn && (
+                <div className="login-buttons">
+                    <Button className="full-rounded" onClick={handleLoginClick}>Login</Button>
+                    <Button className="full-rounded" onClick={handleRegisterClick}>Sign In</Button>
+                </div>
+            )}
+
+            {/* Si está logueado: mostrar botón Cerrar sesión */}
+            {isLoggedIn && (
+                <div className="logged-buttons">
+                    <Button className="full-rounded" id={"dashboard-btn"} onClick={handleDashboardClick}>Dashboard</Button>
+                    <Button className="full-rounded" id={"logout-btn"} onClick={handleLogoutClick}>Cerrar sesión</Button>
+                </div>
+            )}
         </nav>
     );
 }
