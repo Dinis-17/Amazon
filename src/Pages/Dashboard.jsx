@@ -1,3 +1,4 @@
+import { Button } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -22,6 +23,8 @@ function Dashboard() {
         <div>
             <h1>Dashboard:</h1>
             {userName && <p>Bienvenido {userName}</p>}
+
+            <button className={"full-rounded"}>Añadir producto</button>
         </div>
     );
 }
