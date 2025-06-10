@@ -11,7 +11,7 @@ function Dashboard() {
             navigate("/login");
             return;
         }
-
+        
         const name = localStorage.getItem("userName");
         if (name) {
             setUserName(name);
