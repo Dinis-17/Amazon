@@ -42,7 +42,7 @@ function Header() {
 
     return (
         <nav className="header-div">
-            <h1>Tienda</h1>
+            <h1>Amazon 2</h1>
 
             <Button className="full-rounded" onClick={handleHomeClick}>Home</Button>
             <Button className="full-rounded">Más vendido</Button>
