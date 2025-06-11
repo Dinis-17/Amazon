@@ -42,7 +42,7 @@ function Footer() {
             </div>
 
             <div className="footer-bottom">
-                <p>© 2025 Amazon 2. Todos los derechos reservados.</p>
+                <p>© 2025 Amazon 2 Todos los derechos reservados.</p>
             </div>
         </footer>
     )
