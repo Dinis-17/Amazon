@@ -130,7 +130,6 @@ function CategoryRow({ categoryName, products, isAdmin, handleDeleteProduct }) {
                         aria-label="Scroll left"
                         type="button"
                     >
-                        {/* Ícono moderno con SVG */}
                         <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" >
                             <polyline points="15 18 9 12 15 6" />
                         </svg>
