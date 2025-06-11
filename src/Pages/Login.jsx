@@ -25,19 +25,12 @@ function Login() {
             })
             .then((data) => {
                 if (data.success) {
-                    localStorage.setItem('userToken', data.id);
+                    localStorage.setItem('userToken', data.token);
+                    localStorage.setItem('userRole', data.permisos);
+                    navigate('/dashboard');
                 } else {
                     throw new Error(data.message || 'Error al iniciar sesión');
                 }
-            })
-            .then(async (res) => {
-                navigate('/dashboard');
-                location.reload();
-
-                const userInfo = await res.json();
-                if (!res.ok) throw new Error(userInfo.message || 'Error al obtener datos del usuario');
-
-                localStorage.setItem('userToken', userInfo.name || '');
             })
             .catch((err) => {
                 setError(err.message || 'Error de conexión con el servidor');
