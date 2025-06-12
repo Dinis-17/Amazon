@@ -5,7 +5,6 @@ function Dashboard() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [showForm, setShowForm] = useState(false);
-    const [products, setProducts] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -96,36 +95,10 @@ function Dashboard() {
         }
     };
 
-    const handleDelete = async (id) => {
-        const token = localStorage.getItem("userToken");
-        if (!window.confirm("¿Seguro que quieres eliminar este producto?")) return;
-
-        try {
-            const response = await fetch(`http://192.168.0.220:3000/api/product/${id}`, {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert("Producto eliminado.");
-                setProducts(products.filter(p => p._id !== id));
-            } else {
-                alert("Error al eliminar: " + (data.message || "Error desconocido."));
-            }
-        } catch (error) {
-            console.error("Error al eliminar:", error);
-            alert("No se pudo eliminar el producto.");
-        }
-    };
-
     return (
         <div>
             <h1>Dashboard:</h1>
-            {userName && <p>Bienvenido {userName}</p>}
+            {userName && <p>¡Bienvenido/a {userName}!</p>}
 
             <button className="full-rounded" onClick={() => setShowForm(!showForm)}>
                 {showForm ? "Cancelar" : "Añadir producto"}
@@ -146,24 +119,6 @@ function Dashboard() {
                 </form>
             )}
 
-            <h3>Tus productos publicados:</h3>
-            <ul>
-                {products.length === 0 ? (
-                    <p>No tienes productos publicados.</p>
-                ) : (
-                    products.map(product => (
-                        <li key={product._id} style={{ marginBottom: "15px" }}>
-                            <strong>{product.name}</strong> - {product.price}€
-                            <br />
-                            <img src={product.imageUrl} alt={product.name} style={{ width: "100px", height: "auto" }} />
-                            <br />
-                            <button onClick={() => handleDelete(product._id)} style={{ marginTop: "5px", backgroundColor: "red", color: "white" }}>
-                                Eliminar
-                            </button>
-                        </li>
-                    ))
-                )}
-            </ul>
         </div>
     );
 }

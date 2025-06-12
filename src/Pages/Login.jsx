@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/login.css';
+import { AuthContext } from '../components/AuthContext.jsx';
 
 function Login() {
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    const decodeJWT = (token) => {
+        try {
+            const payload = token.split('.')[1];
+            return JSON.parse(atob(payload));
+        } catch (e) {
+            return null;
+        }
+    };
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -25,8 +36,16 @@ function Login() {
             })
             .then((data) => {
                 if (data.success) {
-                    localStorage.setItem('userToken', data.token);
-                    localStorage.setItem('userRole', data.permisos);
+                    login(data.token, data.permisos);
+
+                    const decoded = decodeJWT(data.token);
+                    const userId = decoded?.userId;
+
+                    if (!userId) throw new Error("No se pudo obtener el userId desde el token.");
+
+                    localStorage.setItem('userId', userId);
+                    localStorage.setItem('userName', email); // Puedes cambiar esto si tienes el nombre
+
                     navigate('/dashboard');
                 } else {
                     throw new Error(data.message || 'Error al iniciar sesión');

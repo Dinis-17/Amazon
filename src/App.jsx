@@ -7,8 +7,14 @@ import Footer from './components/Footer.jsx';
 import Login from './pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 import Dashboard from "./Pages/Dashboard.jsx";
+import Cart from './Pages/Cart';
+import ProductDetails from "./Pages/ProductDetails.jsx";
 
 function App() {
+    const user = JSON.parse(localStorage.getItem("user") || '{}');
+
+    const isAdmin = user?.permisos === "admin";
+
     return (
         <div className="app-layout">
             <Router>
@@ -20,6 +26,11 @@ function App() {
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/dashboard" element={<Dashboard />} />
+                        <Route
+                            path="/product/:id"
+                            element={<ProductDetails isAdmin={isAdmin} />}
+                        />
+                        <Route path="/cart" element={<Cart />} />
                     </Routes>
                 </main>
 

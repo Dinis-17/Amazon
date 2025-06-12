@@ -1,26 +1,18 @@
+import { Link } from 'react-router-dom';
 import '../styles/product.css';
 import img from '../assets/img.png';
-import { useState } from 'react';
 
-function ProducteCard({ product, isAdmin, onDelete }) {
-    const [isDeleting, setIsDeleting] = useState(false);
-
-    const handleDelete = () => {
-        if (window.confirm(`¿Estás seguro de que quieres eliminar "${product.name}"?`)) {
-            setIsDeleting(true);
-            onDelete(product.name)
-                .finally(() => setIsDeleting(false));
-        }
-    };
-
+function ProducteCard({ product }) {
     return (
         <div className="product-card">
             <div className="product-card-image">
-                <img
-                    className="product-image"
-                    src={!product.imageUrl ? img : product.imageUrl}
-                    alt={product.name}
-                />
+                <Link to={`/product/${product.id}`}>
+                    <img
+                        className="product-image"
+                        src={!product.imageUrl ? img : product.imageUrl}
+                        alt={product.name}
+                    />
+                </Link>
             </div>
             <div className="product-card-title">
                 <h3>{product.name}</h3>
@@ -36,18 +28,6 @@ function ProducteCard({ product, isAdmin, onDelete }) {
                     {product.stock ? "Disponible" : "Agotado"}
                 </p>
             </div>
-
-            {isAdmin && (
-                <div className="admin-actions">
-                    <button
-                        className="delete-button"
-                        onClick={handleDelete}
-                        disabled={isDeleting}
-                    >
-                        {isDeleting ? 'Eliminando...' : 'Eliminar'}
-                    </button>
-                </div>
-            )}
         </div>
     );
 }

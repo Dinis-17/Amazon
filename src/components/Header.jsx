@@ -19,12 +19,9 @@ function Header() {
             <h1>Amazon 2</h1>
 
             <Button className="full-rounded" onClick={() => navigate('/')}>Home</Button>
-            <Button className="full-rounded">Más vendido</Button>
-            <Button className="full-rounded">Soporte</Button>
-
             <input id="SearchBar" className="input" placeholder="Buscar un producto..." />
 
-            <Button className="full-rounded shopping-cart">
+            <Button className="full-rounded shopping-cart" onClick={() => navigate('/cart')}>
                 <FontAwesomeIcon icon={faCartShopping} />
             </Button>
 

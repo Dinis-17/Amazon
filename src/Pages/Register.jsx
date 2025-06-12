@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/register.css';
+import { AuthContext } from '../components/AuthContext.jsx';
 
 function Register() {
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,24 +39,29 @@ function Register() {
             },
             body: JSON.stringify(userData),
         })
-            .then((res) => {
+            .then(async (res) => {
                 if (!res.ok) throw new Error('Error en la respuesta del servidor');
-                return res.json();
+                const data = await res.json();
+                return data;
             })
             .then((data) => {
                 if (data.message === 'Usuario creado correctamente') {
-                    localStorage.setItem('userToken', data.id);
+                    if(data.token && data.permisos) {
+                        login(data.token, data.permisos);
+                    }
+                    localStorage.setItem('userId', data.id);
                     localStorage.setItem('userName', data.name || name);
 
                     navigate('/dashboard');
-                    location.reload();
                 } else if (data.message === 'Error, email ya registrado') {
                     setError(data.error || 'Ya existe un usuario con ese correo.');
                 } else {
                     setError(data.error || 'Error al registrar el usuario');
                 }
             })
-
+            .catch((err) => {
+                setError(err.message || 'Error de conexión con el servidor');
+            });
     };
 
     return (
@@ -61,7 +69,7 @@ function Register() {
             <form className="register-form" onSubmit={handleRegister}>
                 <h2>Crear cuenta</h2>
 
-                <label htmlFor="name">Nom</label>
+                <label htmlFor="name">Nombre</label>
                 <input
                     type="text"
                     id="name"
@@ -69,7 +77,6 @@ function Register() {
                     onChange={(e) => setName(e.target.value)}
                     required
                 />
-
 
                 <label>Correo electrónico</label>
                 <input
