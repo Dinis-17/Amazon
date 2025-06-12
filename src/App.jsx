@@ -12,7 +12,6 @@ import ProductDetails from "./Pages/ProductDetails.jsx";
 
 function App() {
     const user = JSON.parse(localStorage.getItem("user") || '{}');
-
     const isAdmin = user?.permisos === "admin";
 
     return (
