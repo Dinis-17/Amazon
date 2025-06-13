@@ -1,69 +1,20 @@
-import { useContext, useState, useEffect, useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import ProducteCard from "./ProducteCard.jsx";
 import '../styles/product.css';
-import { AuthContext } from './AuthContext.jsx';
 
-function CategoriaContainer() {
-    const { userRole } = useContext(AuthContext);
-    const isAdmin = userRole === 'admin';
+function CategoriaContainer({ products = [], isAdmin = false, handleDeleteProduct, error }) {
+    if (error) return <p>{error}</p>;
+    if (!products.length) return <p>No hay productos para mostrar.</p>;
 
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const token = localStorage.getItem('userToken') || '';
-
-    useEffect(() => {
-        setLoading(true);
-        fetch("http://192.168.0.220:3000/api/product")
-            .then(res => {
-                if (!res.ok) throw new Error("Error al cargar productos");
-                return res.json();
-            })
-            .then(data => {
-                setProducts(data.products);
-                setLoading(false);
-            })
-            .catch(err => {
-                setError(err.message);
-                setLoading(false);
-            });
-    }, []);
-
-    const handleDeleteProduct = async (name) => {
-        try {
-            const res = await fetch(`http://192.168.0.220:3000/api/product/${encodeURIComponent(name)}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-
-            if (res.status === 204) {
-                alert('Producto eliminado exitosamente');
-                setProducts(prev => prev.filter(p => p.name !== name));
-                return;
-            }
-
-            const errorData = await res.json();
-            throw new Error(errorData.message || 'Error eliminando el producto');
-        } catch (error) {
-            console.error(error);
-            alert(error.message || 'No se pudo eliminar el producto.');
-        }
-    };
-
-    if (loading) return <p>Cargando productos...</p>;
-    if (error) return <p>Algo salió mal: {error}</p>;
+    const groupedByCategory = products.reduce((acc, product) => {
+        if (!acc[product.category]) acc[product.category] = [];
+        acc[product.category].push(product);
+        return acc;
+    }, {});
 
     return (
         <div className="categories">
-            {Object.entries(
-                products.reduce((acc, product) => {
-                    if (!acc[product.category]) acc[product.category] = [];
-                    acc[product.category].push(product);
-                    return acc;
-                }, {})
-            ).map(([categoryName, categoryProducts]) => (
+            {Object.entries(groupedByCategory).map(([categoryName, categoryProducts]) => (
                 <CategoryRow
                     key={categoryName}
                     categoryName={categoryName}
@@ -91,7 +42,6 @@ function CategoryRow({ categoryName, products, isAdmin, handleDeleteProduct }) {
 
         checkForOverflow();
         scrollRef.current?.addEventListener('scroll', checkForOverflow);
-
         window.addEventListener('resize', checkForOverflow);
 
         return () => {
@@ -106,15 +56,9 @@ function CategoryRow({ categoryName, products, isAdmin, handleDeleteProduct }) {
             const scrollAmount = clientWidth * 0.8;
 
             if (direction === 'left') {
-                scrollRef.current.scrollTo({
-                    left: scrollLeft - scrollAmount,
-                    behavior: 'smooth',
-                });
+                scrollRef.current.scrollTo({ left: scrollLeft - scrollAmount, behavior: 'smooth' });
             } else {
-                scrollRef.current.scrollTo({
-                    left: scrollLeft + scrollAmount,
-                    behavior: 'smooth',
-                });
+                scrollRef.current.scrollTo({ left: scrollLeft + scrollAmount, behavior: 'smooth' });
             }
         }
     };
@@ -124,12 +68,7 @@ function CategoryRow({ categoryName, products, isAdmin, handleDeleteProduct }) {
             <h2 className="h2-category-name">{categoryName}</h2>
             <div className="products-wrapper" style={{ position: 'relative' }}>
                 {showLeftArrow && (
-                    <button
-                        className="scroll-button left"
-                        onClick={() => scroll('left')}
-                        aria-label="Scroll left"
-                        type="button"
-                    >
+                    <button className="scroll-button left" onClick={() => scroll('left')} aria-label="Scroll left" type="button">
                         <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" >
                             <polyline points="15 18 9 12 15 6" />
                         </svg>
@@ -159,12 +98,7 @@ function CategoryRow({ categoryName, products, isAdmin, handleDeleteProduct }) {
                 </div>
 
                 {showRightArrow && (
-                    <button
-                        className="scroll-button right"
-                        onClick={() => scroll('right')}
-                        aria-label="Scroll right"
-                        type="button"
-                    >
+                    <button className="scroll-button right" onClick={() => scroll('right')} aria-label="Scroll right" type="button">
                         <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                             <polyline points="9 18 15 12 9 6" />
                         </svg>

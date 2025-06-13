@@ -86,6 +86,8 @@ function Dashboard() {
                     imageUrl: ''
                 });
                 fetchProducts(token);
+
+                window.location.reload();
             } else {
                 alert("Error al agregar producto: " + (data.message || "Error desconocido."));
             }

@@ -90,9 +90,8 @@
 }
 
 .product-image {
-    width: 163px;
+    max-width: 180px;
     height: 163px;
-    object-fit: cover;
     border-radius: 4px;
 }
 
@@ -110,6 +109,22 @@
 
 .delete-button:hover {
     background-color: #c0392b;
+}
+
+.edit-button {
+    background-color: #e7893c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-top: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.ediit-button:hover {
+    background-color: #a6632b;
 }
 
 .scroll-button {
