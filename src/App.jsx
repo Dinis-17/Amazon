@@ -43,7 +43,9 @@ function App() {
 
                 <main className="main-content">
                     <Routes>
-                        <Route path="/" element={<CategoriaContainer products={products} isAdmin={isAdmin} error={error}/>} />
+                        <Route path="/" element={<CategoriaContainer
+                            products={products} isAdmin={isAdmin} error={error}/>}
+                        />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/dashboard" element={<Dashboard />} />
