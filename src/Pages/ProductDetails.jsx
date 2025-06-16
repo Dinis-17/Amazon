@@ -33,7 +33,7 @@ function ProductDetails() {
                 const response = await fetch(`http://192.168.0.220:3000/api/product/${id}`);
 
                 if (!response.ok) {
-                    throw new Error(`Producto no encontrado. Código de estado: ${response.status}`);
+                    Error(`Producto no encontrado. Código de estado: ${response.status}`);
                 }
 
                 const data = await response.json();
@@ -70,7 +70,7 @@ function ProductDetails() {
             });
 
             if (!response.ok) {
-                throw new Error(`Error al eliminar. Código de estado: ${response.status}`);
+               Error(`Error al eliminar. Código de estado: ${response.status}`);
             }
 
             navigate("/")
@@ -122,7 +122,7 @@ function ProductDetails() {
     function addToCart(productToAdd) {
         const userId = localStorage.getItem('userId');
 
-        if (!userId || userId === "null" || userId === "undefined" || userId.trim() === "") {
+        if (!userId || userId === "null" || userId === "undefined") {
             alert("Debes iniciar sesión para añadir productos al carrito.");
             return;
         }
