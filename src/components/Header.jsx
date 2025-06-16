@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { AuthContext } from './AuthContext.jsx';
 import { Button } from "@material-tailwind/react";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
