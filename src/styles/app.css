@@ -165,7 +165,7 @@ button:hover .border {
     align-items: center;
     animation: fadeIn 0.3s ease forwards;
     position: sticky;
-    top: 95px;
+    top: 94px;
     z-index: 5;
 }
 
