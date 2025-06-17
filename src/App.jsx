@@ -8,6 +8,7 @@ import Login from './pages/Login.jsx';
 import Register from './Pages/Register.jsx';
 import Dashboard from "./Pages/Dashboard.jsx";
 import Cart from './Pages/Cart';
+import Pagar from './Pages/Pagar.jsx';
 import ProductDetails from "./Pages/ProductDetails.jsx";
 import { useState, useEffect } from 'react';
 
@@ -50,6 +51,7 @@ function App() {
                         <Route path="/register" element={<Register />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/cart" element={<Cart />} />
+                        <Route path="/pagar" element={<Pagar />} />
                         <Route
                             path="/product/:id"
                             element={<ProductDetails isAdmin={isAdmin} />}

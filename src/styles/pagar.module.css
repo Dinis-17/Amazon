@@ -1,0 +1,82 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+}
+
+.section {
+    margin-bottom: 2rem;
+}
+
+.productList {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.productItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.productItem:last-child {
+    border-bottom: none;
+}
+
+.productName {
+    font-weight: 500;
+}
+
+.productPrice {
+    color: #4C57C2;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.input {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.select {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+}
+
+.button {
+    width: 100%;
+    padding: 1rem;
+    background-color: #4C57C2;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.button:hover {
+    background-color: #3b47a3;
+}

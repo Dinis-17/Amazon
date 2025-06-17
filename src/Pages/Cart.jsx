@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/cart.module.css';
 import { Trash2 } from 'lucide-react';
+import {useNavigate} from "react-router-dom";
 
 function Cart() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loading, setLoading] = useState(true);
     const [cartItems, setCartItems] = useState([]);
     const [total, setTotal] = useState(0);
+    const navigate = useNavigate();
+
+    const handlePagarClick = () => {
+        navigate('/pagar')
+    }
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -90,7 +96,7 @@ function Cart() {
                         <p className={styles.total}>Total: {total.toFixed(2)}€</p>
                         <button
                             className={styles.checkoutBtn}
-                            onClick={() => alert('Función de compra aún no implementada')}
+                            onClick={handlePagarClick}
                             disabled={cartItems.length === 0}
                         >
                             Realizar compra

@@ -208,6 +208,10 @@ button:hover .border {
     background-color: #9a6ea2;
 }
 
+button {
+    cursor: pointer;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

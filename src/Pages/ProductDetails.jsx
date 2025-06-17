@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import { Trash2 } from 'lucide-react';
 import styles from "../styles/ProductDetails.module.css";
 import img from '../assets/img.png';
 import { AuthContext } from "../components/AuthContext.jsx";
+
 
 function ProductDetails() {
     const { id } = useParams();
@@ -29,6 +31,20 @@ function ProductDetails() {
     const [editedDescription, setEditedDescription] = useState("");
     const [editedCategory, setEditedCategory] = useState("");
     const [editedStock, setEditedStock] = useState(false);
+
+    const handlePagarClick = () => {
+        if (!isLoggedIn) {
+            navigate('/login');
+        } else {
+            const added = addToCart(product, false);
+            if (added) {
+                localStorage.setItem('producto_seleccionado', JSON.stringify(product));
+                navigate('/pagar');
+            } else {
+                alert("No se pudo añadir el producto al carrito.");
+            }
+        }
+    };
 
 
     useEffect(() => {
@@ -94,9 +110,7 @@ function ProductDetails() {
                         key={num}
                         style={{ cursor: "pointer", color: num <= rating ? "#ffd700" : "#CCC", fontSize: "35px" }}
                         onClick={() => onChange(num)}
-                    >
-          ★
-        </span>
+                    >★</span>
                 ))}
             </div>
         );
@@ -134,7 +148,6 @@ function ProductDetails() {
 
             if (!response.ok) new Error("Error al enviar la reseña");
 
-            alert("Reseña enviada correctamente");
             setComentario("");
             setRatingSeleccionado(0);
             window.location.reload();
@@ -223,12 +236,12 @@ function ProductDetails() {
         }
     };
 
-    function addToCart(productToAdd) {
+    function addToCart(productToAdd, showAlert = true) {
         const userId = localStorage.getItem('userId');
 
         if (!userId || userId.trim() === "") {
-            alert("Debes iniciar sesión para añadir productos al carrito.");
-            return;
+            if (showAlert) alert("Debes iniciar sesión para añadir productos al carrito.");
+            return false;
         }
 
         const storedCart = localStorage.getItem(`cart-${userId}`);
@@ -240,7 +253,9 @@ function ProductDetails() {
             : [...cart, { ...productToAdd, quantity: 1 }];
 
         localStorage.setItem(`cart-${userId}`, JSON.stringify(updatedCart));
-        alert("Producto añadido al carrito");
+
+        if (showAlert) alert("Producto añadido al carrito");
+        return true;
     }
 
     if (loading) return <p>Cargando detalles del producto...</p>;
@@ -287,7 +302,7 @@ function ProductDetails() {
                     <div className={styles.buttonGroup}>
                         {product.stock && !isEditing && (
                             <>
-                                <button className={styles.buyButton}>Comprar ahora</button>
+                                <button className={styles.buyButton} onClick={handlePagarClick}>Comprar ahora</button>
                                 <button className={styles.cartButton} onClick={() => addToCart(product)}>
                                     Añadir al carrito
                                 </button>
@@ -320,7 +335,7 @@ function ProductDetails() {
             <div className={styles.clientsReviews}>
                 <h1>Reseñas:</h1>
 
-                {isLoggedIn && !isAdmin && (
+                {isLoggedIn &&(
                     <div className={styles.reviewForm}>
                         <h2>Escribe una reseña</h2>
                         <EstrellasEditables rating={ratingSeleccionado} onChange={setRatingSeleccionado} />
@@ -335,7 +350,6 @@ function ProductDetails() {
                     </div>
                 )}
 
-
                 {review.length > 0 ? (
                     review.map((r, i) => (
                         <div key={i} className={styles.review}>
@@ -347,7 +361,9 @@ function ProductDetails() {
 
                             {/* Admin */}
                             {isAdmin && (
-                                <button onClick={() => handleDeleteReview(r._id)}>Eliminar</button>
+                                <button onClick={() => handleDeleteReview(r.id)} className={"delete-button"}>
+                                    <Trash2 size={16} />
+                                </button>
                             )}
                         </div>
                     ))
