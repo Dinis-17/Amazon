@@ -109,15 +109,59 @@ function Dashboard() {
 
             {showForm && (
                 <form onSubmit={handleSubmit} className={style.formContainer} style={{ marginTop: "20px" }}>
-                    <input type="text" name="name" placeholder="Titulo producto" value={formData.name} onChange={handleChange} maxLength={20} required />
-                    <input type="text" name="description" placeholder="Descripción" value={formData.description} onChange={handleChange} maxLength={200} required />
-                    <input type="number" name="price" placeholder="Precio" step="0.01" value={formData.price} onChange={handleChange} maxLength={4} required />
-                    <input type="text" name="category" placeholder="Categoría" value={formData.category} onChange={handleChange} maxLength={5} required />
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Titulo producto"
+                        value={formData.name}
+                        onChange={handleChange}
+                        maxLength={20}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="description"
+                        placeholder="Descripción"
+                        value={formData.description}
+                        onChange={handleChange}
+                        maxLength={200}
+                        required
+                    />
+                    <input
+                        type="number"
+                        name="price"
+                        placeholder="Precio"
+                        step="0.01"
+                        value={formData.price}
+                        onChange={handleChange}
+                        maxLength={4}
+                        required
+                    />
+                    <input
+                        type="text"
+                        name="category"
+                        placeholder="Categoría"
+                        value={formData.category}
+                        onChange={handleChange}
+                        maxLength={5}
+                        required
+                    />
                     <label>
-                        <input type="checkbox" name="stock" checked={formData.stock} onChange={handleChange} />
+                        <input
+                            type="checkbox"
+                            name="stock"
+                            checked={formData.stock}
+                            onChange={handleChange}
+                        />
                         En stock
                     </label>
-                    <input type="url" name="imageUrl" placeholder="URL de la imagen" value={formData.imageUrl} onChange={handleChange} />
+                    <input
+                        type="url"
+                        name="imageUrl"
+                        placeholder="URL de la imagen"
+                        value={formData.imageUrl}
+                        onChange={handleChange}
+                    />
                     <button type="submit">Guardar producto</button>
                 </form>
             )}

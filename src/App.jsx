@@ -33,7 +33,7 @@ function App() {
             })
             .catch(error => {
                 console.error(error);
-                setError('Estamos teniendo problemas con los servidores. Por favor intentelo de nuevo más tarde.');
+                setError('Estamos teniendo problemas con el servidor. Por favor intentelo de nuevo más tarde.');
             });
     }, []);
 
