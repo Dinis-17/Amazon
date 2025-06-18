@@ -11,6 +11,7 @@ function ProducteCard({ product }) {
                         className="product-image"
                         src={!product.imageUrl ? img : product.imageUrl}
                         alt={product.name}
+                        loading="lazy"
                     />
                 </Link>
             </div>

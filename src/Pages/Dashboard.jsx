@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import style from '../styles/dashboard.module.scss'
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -107,11 +108,11 @@ function Dashboard() {
             </button>
 
             {showForm && (
-                <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
-                    <input type="text" name="name" placeholder="Nombre" value={formData.name} onChange={handleChange} required />
-                    <input type="text" name="description" placeholder="Descripción" value={formData.description} onChange={handleChange} required />
-                    <input type="number" name="price" placeholder="Precio" step="0.01" value={formData.price} onChange={handleChange} required />
-                    <input type="text" name="category" placeholder="Categoría" value={formData.category} onChange={handleChange} required />
+                <form onSubmit={handleSubmit} className={style.formContainer} style={{ marginTop: "20px" }}>
+                    <input type="text" name="name" placeholder="Titulo producto" value={formData.name} onChange={handleChange} maxLength={20} required />
+                    <input type="text" name="description" placeholder="Descripción" value={formData.description} onChange={handleChange} maxLength={200} required />
+                    <input type="number" name="price" placeholder="Precio" step="0.01" value={formData.price} onChange={handleChange} maxLength={4} required />
+                    <input type="text" name="category" placeholder="Categoría" value={formData.category} onChange={handleChange} maxLength={5} required />
                     <label>
                         <input type="checkbox" name="stock" checked={formData.stock} onChange={handleChange} />
                         En stock

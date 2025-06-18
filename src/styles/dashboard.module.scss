@@ -1,0 +1,77 @@
+$form-bg: #fff;
+$form-border-radius: 8px;
+$form-shadow: 0 4px 10px rgba(0,0,0,0.1);
+$input-border: 1.5px solid #ccc;
+$input-border-focus: 1.5px solid #4a90e2; // azul suave
+$input-padding: 12px 16px;
+$input-radius: 6px;
+$button-bg: #4a90e2;
+$button-bg-hover: darken($button-bg, 10%);
+$button-color: #fff;
+
+.formContainer {
+  margin-top: 20px;
+  background: $form-bg;
+  border-radius: $form-border-radius;
+  box-shadow: $form-shadow;
+  padding: 24px;
+  max-width: 400px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px; // espacio entre inputs
+
+  input[type="text"],
+  input[type="number"],
+  input[type="url"] {
+    border: $input-border;
+    border-radius: $input-radius;
+    padding: $input-padding;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+
+    &::placeholder {
+      color: #aaa;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $input-border-focus;
+      box-shadow: 0 0 5px rgba(74,144,226,0.5);
+    }
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #333;
+
+    input[type="checkbox"] {
+      margin-right: 8px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+  }
+
+  button {
+    background-color: $button-bg;
+    color: $button-color;
+    border: none;
+    border-radius: $input-radius;
+    padding: 14px 0;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $button-bg-hover;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
