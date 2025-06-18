@@ -89,7 +89,7 @@ function Dashboard() {
 
                 window.location.reload();
             } else {
-                alert("Error al agregar producto: " + (data.message || "Error desconocido."));
+                alert("Error al agregar producto: " + (data.message || response.statusText || "Error desconocido."));
             }
         } catch (error) {
             console.error("Error de red:", error);

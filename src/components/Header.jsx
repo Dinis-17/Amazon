@@ -65,7 +65,7 @@ function Header({ categories = [], onFilter }) {
             <nav className="header-div">
                 <h1>Amazon 2</h1>
 
-                <Button className="full-rounded" onClick={() => navigate('/')}>Home</Button>
+                <Button className="full-rounded" onClick={() => navigate('/')}>Hogar</Button>
                 <input id="SearchBar" className="input" placeholder="Buscar un producto..." />
 
                 <Button className="full-rounded" onClick={toggleFilters}>Filtrar</Button>
@@ -103,7 +103,7 @@ function Header({ categories = [], onFilter }) {
                     </select>
 
                     <button onClick={applyFilters} className="btn-apply">Aplicar filtros</button>
-                    <button onClick={resetFilters} className="btn-reset">Reset</button>
+                    <button onClick={resetFilters} className="btn-reset">Reiniciar</button>
                 </div>
             )}
         </>
