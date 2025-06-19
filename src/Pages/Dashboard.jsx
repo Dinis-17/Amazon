@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from '../styles/dashboard.module.scss'
 
+
 function Dashboard() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');

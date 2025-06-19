@@ -21,7 +21,7 @@ function Pagar() {
                     return;
                 }
             } catch {
-                // Ignorar error JSON
+            //
             }
         }
 
@@ -30,7 +30,7 @@ function Pagar() {
                 const parsedProduct = JSON.parse(storedProduct);
                 setCartItems([{ ...parsedProduct, quantity: 1 }]);
             } catch {
-                // Ignorar error JSON
+            //
             }
         }
     }, []);

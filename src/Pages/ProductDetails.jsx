@@ -28,7 +28,7 @@ function ProductDetails() {
     const [editedPrice, setEditedPrice] = useState("");
     const [editedDescription, setEditedDescription] = useState("");
     const [editedCategory, setEditedCategory] = useState("");
-    const [editedStock, setEditedStock] = useState(false);
+    const [editedStock, setEditedStock] = useState(false)
 
 
     useEffect(() => {
